@@ -1,0 +1,1730 @@
+{
+  "metainfo" : {
+    "id" : "graph",
+    "language" : "python",
+    "fabricId" : "default",
+    "frontEndLanguage" : "python",
+    "mode" : "batch",
+    "udfs" : {
+      "language" : "python",
+      "udfs" : [ ]
+    },
+    "configuration" : {
+      "common" : {
+        "type" : "record",
+        "fields" : [ {
+          "name" : "RECEIVED_FILE_ID",
+          "kind" : {
+            "type" : "string",
+            "value" : "0"
+          },
+          "optional" : false,
+          "isWorkflowNodeConfiguration" : false,
+          "isReferenced" : false
+        }, {
+          "name" : "BATCH_RUN_ID",
+          "kind" : {
+            "type" : "string",
+            "value" : "0"
+          },
+          "optional" : false,
+          "isWorkflowNodeConfiguration" : false,
+          "isReferenced" : false
+        }, {
+          "name" : "DATA_DT",
+          "kind" : {
+            "type" : "string",
+            "value" : ""
+          },
+          "optional" : false,
+          "isWorkflowNodeConfiguration" : false,
+          "isReferenced" : false
+        }, {
+          "name" : "TARGET_TABLE1",
+          "kind" : {
+            "type" : "string",
+            "value" : ""
+          },
+          "optional" : false,
+          "isWorkflowNodeConfiguration" : false,
+          "isReferenced" : false
+        } ]
+      },
+      "oldCommon" : {
+        "type" : "record",
+        "fields" : [ ]
+      },
+      "fabrics" : {
+        "default" : {
+          "type" : "record",
+          "fields" : [ ]
+        }
+      },
+      "instances" : {
+        "default" : { }
+      },
+      "selected" : "default",
+      "nonEditable" : [ ],
+      "isSubscribedPipelineWithPipelineConfigs" : false,
+      "resolvedConfigs" : {
+        "default" : { }
+      }
+    },
+    "sparkConf" : [ ],
+    "hadoopConf" : [ ],
+    "codeMode" : "sparse",
+    "buildSystem" : "maven",
+    "externalDependencies" : [ ],
+    "dependentProjectExternalDependencies" : [ ],
+    "isImported" : true,
+    "interimMode" : "Full",
+    "interimModeEnabled" : true,
+    "visualCodeInterimMode" : "Disabled",
+    "recordsLimit" : {
+      "enabled" : false,
+      "value" : 1000
+    }
+  },
+  "connections" : [ {
+    "id" : "edge_1675",
+    "source" : "Customer_Orders_EXP",
+    "sourcePort" : "out0",
+    "target" : "Customer_Orders",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1676",
+    "source" : "Sum_Amounts",
+    "sourcePort" : "out0",
+    "target" : "Customer_Orders_EXP",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1677",
+    "source" : "Customers",
+    "sourcePort" : "out0",
+    "target" : "SQ_CUSTOMER",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1678",
+    "source" : "Cleanup",
+    "sourcePort" : "out0",
+    "target" : "Sum_Amounts",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1679",
+    "source" : "SQ_Orders",
+    "sourcePort" : "out0",
+    "target" : "By_Customer_ID_add_missing_column",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1680",
+    "source" : "By_Customer_ID_add_missing_column",
+    "sourcePort" : "out0",
+    "target" : "By_Customer_ID",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1681",
+    "source" : "SQ_CUSTOMER",
+    "sourcePort" : "out0",
+    "target" : "By_Customer_ID",
+    "targetPort" : "in1"
+  }, {
+    "id" : "edge_1682",
+    "source" : "Orders",
+    "sourcePort" : "out0",
+    "target" : "SQ_Orders",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1683",
+    "source" : "By_Customer_ID",
+    "sourcePort" : "out0",
+    "target" : "Cleanup_add_missing_column",
+    "targetPort" : "in0"
+  }, {
+    "id" : "edge_1684",
+    "source" : "Cleanup_add_missing_column",
+    "sourcePort" : "out0",
+    "target" : "Cleanup",
+    "targetPort" : "in0"
+  } ],
+  "processes" : {
+    "Customer_Orders_EXP" : {
+      "id" : "Customer_Orders_EXP",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "Customer_Orders_EXP",
+        "slug" : "Customer_Orders_EXP",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "_row_id" : "885869406",
+          "target" : "customer_id",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"customer_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "434197612",
+          "target" : "orders",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"orders\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1254274115",
+          "target" : "amounts",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"amounts\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "685940134",
+          "target" : "account_length_days",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"account_length_days\")"
+          },
+          "description" : ""
+        } ]
+      }
+    },
+    "Cleanup" : {
+      "id" : "Cleanup",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "Cleanup",
+        "slug" : "Cleanup",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "_row_id" : "927096678",
+          "target" : "order_id",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"order_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1757115229",
+          "target" : "customer_id",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"customer_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1458365552",
+          "target" : "amount",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"amount\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1437049860",
+          "target" : "account_length_days",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "lit(100)"
+          },
+          "description" : ""
+        } ]
+      }
+    },
+    "By_Customer_ID" : {
+      "id" : "By_Customer_ID",
+      "component" : "Join",
+      "metadata" : {
+        "label" : "By_Customer_ID",
+        "slug" : "By_Customer_ID",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        }, {
+          "id" : "in1",
+          "slug" : "in1"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "conditions" : [ {
+          "alias" : "in1",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "col(\"in0.customer_id\") == col(\"in0.customer_id\")"
+          },
+          "joinType" : "inner"
+        } ],
+        "expressions" : [ {
+          "_row_id" : "1925627558",
+          "target" : "REFERRAL_CONSUMER_COUNT",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.REFERRAL_CONSUMER_COUNT\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "896031914",
+          "target" : "first_name",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in1.first_name\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1942154660",
+          "target" : "order_id",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.order_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1798665375",
+          "target" : "ENROLLMENT_SOURCE_ID_CAS",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.ENROLLMENT_SOURCE_ID_CAS\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "862047510",
+          "target" : "customer_id",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.customer_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "192282139",
+          "target" : "CC_LOYALTY_PRMRY_CONTACT_FLAG",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.CC_LOYALTY_PRMRY_CONTACT_FLAG\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "641484335",
+          "target" : "ENROLLMENT_SOURCE_ID_CC",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.ENROLLMENT_SOURCE_ID_CC\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1505215685",
+          "target" : "amount",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.amount\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1289121557",
+          "target" : "CONSUMER_PROFILE_KEY2",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.CONSUMER_PROFILE_KEY2\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "2080987568",
+          "target" : "account_open_date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in1.account_open_date\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "689536586",
+          "target" : "last_name",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in1.last_name\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1003358993",
+          "target" : "order_status",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.order_status\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1398076090",
+          "target" : "order_date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.order_date\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1284690783",
+          "target" : "CONSUMER_ID",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.CONSUMER_ID\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "204505596",
+          "target" : "CAS_LOYALTY_PRMRY_CONTACT_FLAG",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in0.CAS_LOYALTY_PRMRY_CONTACT_FLAG\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1555301072",
+          "target" : "phone",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"in1.phone\")"
+          },
+          "description" : ""
+        } ],
+        "hints" : [ {
+          "id" : "in0",
+          "alias" : "in0",
+          "hintType" : "none",
+          "propagateColumns" : false
+        }, {
+          "id" : "in1",
+          "alias" : "in1",
+          "hintType" : "none",
+          "propagateColumns" : false
+        } ],
+        "activeTab" : "conditions",
+        "columnsSelector" : [ ],
+        "whereClause" : null,
+        "headAlias" : "in0"
+      }
+    },
+    "SQ_Orders" : {
+      "id" : "SQ_Orders",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "SQ_Orders",
+        "slug" : "SQ_Orders",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "_row_id" : "1419678421",
+          "target" : "order_id",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"order_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "278143239",
+          "target" : "customer_id",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"customer_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "25658779",
+          "target" : "order_status",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"order_status\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "707119214",
+          "target" : "order_date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"order_date\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "135250323",
+          "target" : "amount",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"amount\")"
+          },
+          "description" : ""
+        } ]
+      }
+    },
+    "SQ_CUSTOMER" : {
+      "id" : "SQ_CUSTOMER",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "SQ_CUSTOMER",
+        "slug" : "SQ_CUSTOMER",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "_row_id" : "1920739096",
+          "target" : "customer_id",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"customer_id\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "169698008",
+          "target" : "first_name",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"first_name\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "240215246",
+          "target" : "last_name",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"last_name\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1296999616",
+          "target" : "phone",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"phone\")"
+          },
+          "description" : ""
+        }, {
+          "_row_id" : "1453826919",
+          "target" : "account_open_date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"account_open_date\")"
+          },
+          "description" : ""
+        } ]
+      }
+    },
+    "Customer_Orders" : {
+      "id" : "Customer_Orders",
+      "component" : "Target",
+      "metadata" : {
+        "label" : "Customer_Orders",
+        "slug" : "Customer_Orders",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "customer_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "orders",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "amounts",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_length_days",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "format" : "csv",
+        "refreshDataset" : false,
+        "dataFormats" : [ {
+          "label" : "CSV",
+          "value" : "csv",
+          "icon" : "CsvIcon",
+          "type" : "File"
+        }, {
+          "label" : "Parquet",
+          "value" : "parquet",
+          "icon" : "ParquetLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Avro",
+          "value" : "avro",
+          "icon" : "AvroLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Text",
+          "value" : "text",
+          "icon" : "FileTextIcon",
+          "type" : "File"
+        }, {
+          "label" : "Delta",
+          "value" : "delta",
+          "icon" : "DeltaLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "JSON",
+          "value" : "json",
+          "icon" : "JsonIcon",
+          "type" : "File"
+        }, {
+          "label" : "ORC",
+          "value" : "orc",
+          "icon" : "OrcLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Fixed Format",
+          "value" : "fixedformat",
+          "icon" : "FixedFormatFileIcon",
+          "type" : "File"
+        }, {
+          "label" : "Catalog Table",
+          "value" : "catalogTable",
+          "icon" : "CatalogTableIcon",
+          "type" : "Database"
+        }, {
+          "label" : "Snowflake",
+          "value" : "snowflake",
+          "icon" : "SnowflakeLogoIcon",
+          "type" : "Warehouse"
+        }, {
+          "label" : "Xml",
+          "value" : "xml",
+          "icon" : "XmlIcon",
+          "type" : "File"
+        }, {
+          "label" : "Kafka",
+          "value" : "KafkaStream",
+          "icon" : "KafkaLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Mongodb",
+          "value" : "mongodb",
+          "icon" : "MongoDbIcon",
+          "type" : "Warehouse"
+        }, {
+          "label" : "Xlsx",
+          "value" : "xlsx",
+          "icon" : "FileIcon",
+          "type" : "File"
+        }, {
+          "label" : "JDBC",
+          "value" : "jdbc",
+          "icon" : "JdbcFileIcon",
+          "type" : "Warehouse"
+        } ],
+        "datasetId" : "22432/datasets/Customer_Orders",
+        "dataTypes" : [ {
+          "label" : "File",
+          "value" : "File",
+          "icon" : "File"
+        }, {
+          "label" : "Warehouse",
+          "value" : "Warehouse",
+          "icon" : "Database"
+        }, {
+          "label" : "Catalog Table",
+          "value" : "Database",
+          "icon" : "CatalogTable"
+        }, {
+          "label" : "Applications",
+          "value" : "WebApp",
+          "icon" : "WebApp"
+        } ],
+        "currentDatasetId" : "22432/datasets/Customer_Orders",
+        "dataset" : {
+          "ignoreLeadingWhiteSpaceReading" : null,
+          "multiLine" : null,
+          "path" : "path",
+          "ignoreTrailingWhiteSpaceReading" : null,
+          "maxColumns" : null,
+          "writeMode" : "append",
+          "description" : "",
+          "separator" : ",",
+          "compression" : null,
+          "nullValue" : null,
+          "nanValue" : null,
+          "escapeQuotes" : null,
+          "charToEscapeQuoteEscaping" : null,
+          "skipFooters" : null,
+          "encoding" : null,
+          "inferSchema" : null,
+          "enforceSchema" : null,
+          "quoteAll" : null,
+          "ignoreLeadingWhiteSpaceWriting" : null,
+          "locale" : null,
+          "quote" : "\"",
+          "timestampFormat" : null,
+          "emptyValue" : null,
+          "recursiveFileLookup" : null,
+          "partitionColumns" : null,
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "customer_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "orders",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "amounts",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_length_days",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "escape" : null,
+          "unescapedQuoteHandling" : null,
+          "positiveInf" : null,
+          "skipHeaders" : null,
+          "comment" : null,
+          "lineSep" : null,
+          "samplingRatio" : null,
+          "dateFormat" : null,
+          "mode" : null,
+          "header" : true,
+          "columnNameOfCorruptRecord" : null,
+          "modifiedBefore" : null,
+          "ignoreTrailingWhiteSpaceWriting" : null,
+          "maxCharsPerColumn" : null,
+          "negativeInf" : null,
+          "createSingleOutputFile" : null,
+          "pathGlobFilter" : null,
+          "useSchema" : true,
+          "modifiedAfter" : null
+        },
+        "isNewDataset" : false,
+        "datasetType" : "File"
+      }
+    },
+    "By_Customer_ID_add_missing_column" : {
+      "id" : "By_Customer_ID_add_missing_column",
+      "component" : "SchemaTransform",
+      "metadata" : {
+        "label" : "By_Customer_ID_add_missing_column",
+        "slug" : "By_Customer_ID_add_missing_column",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "transformations" : [ {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "ENROLLMENT_SOURCE_ID_CC",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        }, {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "CC_LOYALTY_PRMRY_CONTACT_FLAG",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        }, {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "ENROLLMENT_SOURCE_ID_CAS",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        }, {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "CAS_LOYALTY_PRMRY_CONTACT_FLAG",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        }, {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "CONSUMER_ID",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        }, {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "REFERRAL_CONSUMER_COUNT",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        }, {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "CONSUMER_PROFILE_KEY2",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(StringType())"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        } ]
+      }
+    },
+    "Customers" : {
+      "id" : "Customers",
+      "component" : "Source",
+      "metadata" : {
+        "label" : "Customers",
+        "slug" : "Customers",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "first_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "customer_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "email",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_open_date",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "country_code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "last_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_flags",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "phone",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "format" : "csv",
+        "refreshDataset" : false,
+        "dataFormats" : [ {
+          "label" : "CSV",
+          "value" : "csv",
+          "icon" : "CsvIcon",
+          "type" : "File"
+        }, {
+          "label" : "Parquet",
+          "value" : "parquet",
+          "icon" : "ParquetLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Avro",
+          "value" : "avro",
+          "icon" : "AvroLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Text",
+          "value" : "text",
+          "icon" : "FileTextIcon",
+          "type" : "File"
+        }, {
+          "label" : "Delta",
+          "value" : "delta",
+          "icon" : "DeltaLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "JSON",
+          "value" : "json",
+          "icon" : "JsonIcon",
+          "type" : "File"
+        }, {
+          "label" : "ORC",
+          "value" : "orc",
+          "icon" : "OrcLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Fixed Format",
+          "value" : "fixedformat",
+          "icon" : "FixedFormatFileIcon",
+          "type" : "File"
+        }, {
+          "label" : "Catalog Table",
+          "value" : "catalogTable",
+          "icon" : "CatalogTableIcon",
+          "type" : "Database"
+        }, {
+          "label" : "Snowflake",
+          "value" : "snowflake",
+          "icon" : "SnowflakeLogoIcon",
+          "type" : "Warehouse"
+        }, {
+          "label" : "Xml",
+          "value" : "xml",
+          "icon" : "XmlIcon",
+          "type" : "File"
+        }, {
+          "label" : "Kafka",
+          "value" : "KafkaStream",
+          "icon" : "KafkaLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Mongodb",
+          "value" : "mongodb",
+          "icon" : "MongoDbIcon",
+          "type" : "Warehouse"
+        }, {
+          "label" : "Xlsx",
+          "value" : "xlsx",
+          "icon" : "FileIcon",
+          "type" : "File"
+        }, {
+          "label" : "JDBC",
+          "value" : "jdbc",
+          "icon" : "JdbcFileIcon",
+          "type" : "Warehouse"
+        } ],
+        "datasetId" : "22432/datasets/Customers",
+        "dataTypes" : [ {
+          "label" : "File",
+          "value" : "File",
+          "icon" : "File"
+        }, {
+          "label" : "Warehouse",
+          "value" : "Warehouse",
+          "icon" : "Database"
+        }, {
+          "label" : "Catalog Table",
+          "value" : "Database",
+          "icon" : "CatalogTable"
+        }, {
+          "label" : "Applications",
+          "value" : "WebApp",
+          "icon" : "WebApp"
+        } ],
+        "currentDatasetId" : "22432/datasets/Customers",
+        "dataset" : {
+          "ignoreLeadingWhiteSpaceReading" : null,
+          "multiLine" : null,
+          "path" : "file",
+          "ignoreTrailingWhiteSpaceReading" : null,
+          "maxColumns" : null,
+          "writeMode" : "error",
+          "description" : "",
+          "separator" : "YES",
+          "compression" : null,
+          "nullValue" : null,
+          "nanValue" : null,
+          "escapeQuotes" : null,
+          "charToEscapeQuoteEscaping" : null,
+          "skipFooters" : null,
+          "encoding" : null,
+          "inferSchema" : null,
+          "enforceSchema" : null,
+          "quoteAll" : null,
+          "ignoreLeadingWhiteSpaceWriting" : null,
+          "locale" : null,
+          "quote" : "\"",
+          "timestampFormat" : null,
+          "emptyValue" : null,
+          "recursiveFileLookup" : null,
+          "partitionColumns" : null,
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "first_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "customer_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "email",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_open_date",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "country_code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "last_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_flags",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "phone",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "escape" : null,
+          "unescapedQuoteHandling" : null,
+          "positiveInf" : null,
+          "skipHeaders" : null,
+          "comment" : null,
+          "lineSep" : null,
+          "samplingRatio" : null,
+          "dateFormat" : null,
+          "mode" : null,
+          "header" : true,
+          "columnNameOfCorruptRecord" : null,
+          "modifiedBefore" : null,
+          "ignoreTrailingWhiteSpaceWriting" : null,
+          "maxCharsPerColumn" : null,
+          "negativeInf" : null,
+          "createSingleOutputFile" : null,
+          "pathGlobFilter" : null,
+          "useSchema" : true,
+          "modifiedAfter" : null
+        },
+        "isNewDataset" : false,
+        "datasetType" : "File"
+      }
+    },
+    "Cleanup_add_missing_column" : {
+      "id" : "Cleanup_add_missing_column",
+      "component" : "SchemaTransform",
+      "metadata" : {
+        "label" : "Cleanup_add_missing_column",
+        "slug" : "Cleanup_add_missing_column",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "transformations" : [ {
+          "kind" : "AddReplaceColumn",
+          "AddReplaceColumn" : {
+            "sourceColumn" : "account_length_days",
+            "expression" : {
+              "format" : "python",
+              "expression" : "lit(None).cast(DecimalType(22,0))"
+            }
+          },
+          "DropColumn" : {
+            "sourceColumn" : ""
+          },
+          "RenameColumn" : {
+            "sourceColumn" : "",
+            "targetColumn" : ""
+          }
+        } ]
+      }
+    },
+    "Sum_Amounts" : {
+      "id" : "Sum_Amounts",
+      "component" : "Aggregate",
+      "metadata" : {
+        "label" : "Sum_Amounts",
+        "slug" : "Sum_Amounts",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in0",
+          "slug" : "in0"
+        } ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "allIns" : false,
+        "doPivot" : false,
+        "aggregate" : [ {
+          "target" : "orders",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "count(col(\"order_id\"))"
+          },
+          "description" : ""
+        }, {
+          "target" : "amounts",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "sum(col(\"amount\"))"
+          },
+          "description" : ""
+        }, {
+          "target" : "account_length_days",
+          "expression" : {
+            "format" : "scala",
+            "expression" : "first(col(\"account_length_days\"))"
+          },
+          "description" : ""
+        } ],
+        "allowSelection" : true,
+        "pivotColumn" : null,
+        "pivotValues" : [ ],
+        "activeTab" : "aggregate",
+        "columnsSelector" : [ ],
+        "groupBy" : [ {
+          "target" : "customer_id",
+          "expression" : {
+            "format" : "sql",
+            "expression" : "customer_id"
+          },
+          "description" : ""
+        } ]
+      }
+    },
+    "Orders" : {
+      "id" : "Orders",
+      "component" : "Source",
+      "metadata" : {
+        "label" : "Orders",
+        "slug" : "Orders",
+        "x" : 2147483647,
+        "y" : 2147483647,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ ],
+        "outputs" : [ {
+          "id" : "out0",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "order_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "customer_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_category",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "amount",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_status",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_date",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "format" : "csv",
+        "refreshDataset" : false,
+        "dataFormats" : [ {
+          "label" : "CSV",
+          "value" : "csv",
+          "icon" : "CsvIcon",
+          "type" : "File"
+        }, {
+          "label" : "Parquet",
+          "value" : "parquet",
+          "icon" : "ParquetLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Avro",
+          "value" : "avro",
+          "icon" : "AvroLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Text",
+          "value" : "text",
+          "icon" : "FileTextIcon",
+          "type" : "File"
+        }, {
+          "label" : "Delta",
+          "value" : "delta",
+          "icon" : "DeltaLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "JSON",
+          "value" : "json",
+          "icon" : "JsonIcon",
+          "type" : "File"
+        }, {
+          "label" : "ORC",
+          "value" : "orc",
+          "icon" : "OrcLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Fixed Format",
+          "value" : "fixedformat",
+          "icon" : "FixedFormatFileIcon",
+          "type" : "File"
+        }, {
+          "label" : "Catalog Table",
+          "value" : "catalogTable",
+          "icon" : "CatalogTableIcon",
+          "type" : "Database"
+        }, {
+          "label" : "Snowflake",
+          "value" : "snowflake",
+          "icon" : "SnowflakeLogoIcon",
+          "type" : "Warehouse"
+        }, {
+          "label" : "Xml",
+          "value" : "xml",
+          "icon" : "XmlIcon",
+          "type" : "File"
+        }, {
+          "label" : "Kafka",
+          "value" : "KafkaStream",
+          "icon" : "KafkaLogoIcon",
+          "type" : "File"
+        }, {
+          "label" : "Mongodb",
+          "value" : "mongodb",
+          "icon" : "MongoDbIcon",
+          "type" : "Warehouse"
+        }, {
+          "label" : "Xlsx",
+          "value" : "xlsx",
+          "icon" : "FileIcon",
+          "type" : "File"
+        }, {
+          "label" : "JDBC",
+          "value" : "jdbc",
+          "icon" : "JdbcFileIcon",
+          "type" : "Warehouse"
+        } ],
+        "datasetId" : "22432/datasets/Orders",
+        "dataTypes" : [ {
+          "label" : "File",
+          "value" : "File",
+          "icon" : "File"
+        }, {
+          "label" : "Warehouse",
+          "value" : "Warehouse",
+          "icon" : "Database"
+        }, {
+          "label" : "Catalog Table",
+          "value" : "Database",
+          "icon" : "CatalogTable"
+        }, {
+          "label" : "Applications",
+          "value" : "WebApp",
+          "icon" : "WebApp"
+        } ],
+        "currentDatasetId" : "22432/datasets/Orders",
+        "dataset" : {
+          "ignoreLeadingWhiteSpaceReading" : null,
+          "multiLine" : null,
+          "path" : "file",
+          "ignoreTrailingWhiteSpaceReading" : null,
+          "maxColumns" : null,
+          "writeMode" : "error",
+          "description" : "",
+          "separator" : "YES",
+          "compression" : null,
+          "nullValue" : null,
+          "nanValue" : null,
+          "escapeQuotes" : null,
+          "charToEscapeQuoteEscaping" : null,
+          "skipFooters" : null,
+          "encoding" : null,
+          "inferSchema" : null,
+          "enforceSchema" : null,
+          "quoteAll" : null,
+          "ignoreLeadingWhiteSpaceWriting" : null,
+          "locale" : null,
+          "quote" : "\"",
+          "timestampFormat" : null,
+          "emptyValue" : null,
+          "recursiveFileLookup" : null,
+          "partitionColumns" : null,
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "order_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "customer_id",
+              "type" : "integer",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_category",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "amount",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_status",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_date",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "escape" : null,
+          "unescapedQuoteHandling" : null,
+          "positiveInf" : null,
+          "skipHeaders" : null,
+          "comment" : null,
+          "lineSep" : null,
+          "samplingRatio" : null,
+          "dateFormat" : null,
+          "mode" : null,
+          "header" : true,
+          "columnNameOfCorruptRecord" : null,
+          "modifiedBefore" : null,
+          "ignoreTrailingWhiteSpaceWriting" : null,
+          "maxCharsPerColumn" : null,
+          "negativeInf" : null,
+          "createSingleOutputFile" : null,
+          "pathGlobFilter" : null,
+          "useSchema" : true,
+          "modifiedAfter" : null
+        },
+        "isNewDataset" : false,
+        "datasetType" : "File"
+      }
+    }
+  },
+  "ports" : {
+    "inputs" : [ ],
+    "outputs" : [ ],
+    "selectedInputFields" : [ ],
+    "isCustomOutputSchema" : false,
+    "autoUpdateOnRun" : false
+  }
+}

@@ -1,0 +1,123 @@
+name: TranspilerINFA
+description: Transpiler INFA import
+version: 0.0.1
+author: bobw@prophecy.io
+language: python
+buildSystem: ''
+buildSystemDetails:
+  artefactID: transpilerinfa
+  parentArtefactID: bobwprophecyioteam
+  buildSystem: wheel
+  author: null
+  createdAt: '2024-04-11 14:04:39'
+pipelines:
+  pipelines/COMM_MDM_m_STG_PUB_PTY:
+    name: COMM_MDM_m_STG_PUB_PTY
+    description: null
+    author: bobw@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2024-04-11 14:27:47'
+    datasets:
+      inputs:
+      - datasets/Customers
+      - datasets/Orders
+      outputs:
+      - datasets/Customer_Orders
+    subgraphs: []
+    dependencies: {}
+datasets:
+  datasets/Customer_Orders:
+    name: Customer_Orders
+    description: 'Dataset for componentName: Customer_Orders'
+    author: bobw@prophecy.io
+    createdAt: '2024-04-11 14:27:47'
+    mode: batch
+    physicalDatasets:
+      Databricks-Prophecy:
+        fabricId: 9631
+        datasetType: File
+        description: ''
+        author: bobw@prophecy.io
+        createdAt: '2024-04-11 14:27:47'
+  datasets/Customers:
+    name: Customers
+    description: 'Dataset for componentName: Customers'
+    author: bobw@prophecy.io
+    createdAt: '2024-04-11 14:27:47'
+    mode: batch
+    physicalDatasets:
+      Databricks-Prophecy:
+        fabricId: 9631
+        datasetType: File
+        description: ''
+        author: bobw@prophecy.io
+        createdAt: '2024-04-11 14:27:47'
+  datasets/Orders:
+    name: Orders
+    description: 'Dataset for componentName: Orders'
+    author: bobw@prophecy.io
+    createdAt: '2024-04-11 14:27:47'
+    mode: batch
+    physicalDatasets:
+      Databricks-Prophecy:
+        fabricId: 9631
+        datasetType: File
+        description: ''
+        author: bobw@prophecy.io
+        createdAt: '2024-04-11 14:27:47'
+templates: {}
+jobs: {}
+gemContainer:
+  languageVersion: '3.10'
+  gemLibsVersion: 1.3.4.0
+  gems: {}
+  dependencies: null
+functions:
+  author: null
+  createdAt: '2024-04-11 14:04:39'
+  udfs: {}
+  udafs: {}
+  expressions: {}
+  airflowFunctions: {}
+subgraphs: {}
+sqlModels: {}
+sqlMacros: {}
+sqlSeeds: {}
+sqlSources: {}
+sqlUnreferencedSources: {}
+sqlPipeline: null
+dependencies:
+- type: plibMaven
+  modifiedAt: '2024-04-11T14:30:43.123964Z'
+  name: plibMaven
+  version: 7.1.83
+  id: '623990308'
+  createdAt: '2024-04-11T14:30:43.123849Z'
+- type: plibPypi
+  modifiedAt: '2024-04-11T14:30:43.124059Z'
+  name: plibPypi
+  version: 1.8.13
+  id: '946923404'
+  createdAt: '2024-04-11T14:30:43.124021Z'
+projectDependencies:
+  '12654':
+    projectUID: 12654
+    projectName: ProphecySparkBasicsPython
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12654.git&subPath=
+    version: 0.2.5
+    isDefault: true
+    author: null
+    createdAt: '2024-04-11 14:02:38'
+  '12655':
+    projectUID: 12655
+    projectName: ProphecyWarehousePython
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12655.git&subPath=
+    version: 0.0.5
+    isDefault: true
+    author: null
+    createdAt: '2024-04-11 14:02:38'
+flags:
+  shouldAddDefaultDependenciesIfAbsent: true
+pipelineConfigurations: {}
