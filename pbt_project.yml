@@ -1,6 +1,6 @@
 name: TranspilerINFA
 description: Transpiler INFA import
-version: 0.0.1
+version: '1.0'
 author: bobw@prophecy.io
 language: python
 buildSystem: ''
